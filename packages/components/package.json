@@ -21,7 +21,28 @@
     "./dist/loader": "./dist/loader.js",
     "./dist/components": "./dist/index.js",
     "./dist/components/*": "./dist/components/*/index.js",
-    "./main.css": "./dist/cdn/main.css"
+    "./main.css": "./dist/cdn/main.css",
+    "./components/types": {
+      "types": "./dist/components/types.d.ts"
+    },
+    "./components/*/types": {
+      "types": "./dist/components/*/types.d.ts"
+    },
+    "./components/functional/*": {
+      "types": "./dist/components/functional/*.d.ts"
+    },
+    "./components/*/utils": {
+      "types": "./dist/components/*/utils.d.ts"
+    },
+    "./components/*/resources": {
+      "types": "./dist/components/*/resources.d.ts"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts"
+    },
+    "./controllers/*": {
+      "types": "./dist/controllers/*.d.ts"
+    }
   },
   "main": "dist/index.js",
   "jsdelivr": "dist/index.js",
@@ -34,7 +55,7 @@
   ],
   "scripts": {
     "build": "pnpm util:prep-build-reqs && vite build",
-    "postbuild": "pnpm util:generate-t9n-docs-json && pnpm util:generate-supported-browsers-json",
+    "postbuild": "pnpm util:generate-t9n-docs-json && pnpm util:generate-supported-browsers-json && pnpm util:validate-cem-types",
     "build-storybook": "pnpm util:prep-build-reqs && NODE_OPTIONS=--openssl-legacy-provider storybook build --output-dir ./docs --quiet --stats-json && pnpm util:postprocess-storybook-dependency-graph",
     "build:dev": "vite build --mode development",
     "build:watch": "pnpm util:prep-build-reqs && vite --mode production",
@@ -71,7 +92,8 @@
     "util:is-working-tree-clean": "[ -z \"$(git status --porcelain=v1)\" ]",
     "util:prep-build-reqs": "pnpm util:copy-assets",
     "util:sync-t9n-en-bundles": "node support/sync-en-t9n-bundles.ts",
-    "util:update-3rd-party-notices": "node ../../support/createThirdPartyNotices.mts"
+    "util:update-3rd-party-notices": "node ../../support/createThirdPartyNotices.mts",
+    "util:validate-cem-types": "node support/validate-cem-types.ts"
   },
   "dependencies": {
     "@arcgis/lumina": "catalog:dependency-ranges",
